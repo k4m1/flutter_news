@@ -11,7 +11,9 @@
    - materialApp theming
    - styling
  - homepage
-   - 
+   - HomePage -> stateful widget
+   - track the _HomePageState ( underscore to show that this interface should not be public )
+   - return the result of Scaffold() passing our appBar as a PerferredSizeWidget() passing my desired size 
 
 
 #### store the data
