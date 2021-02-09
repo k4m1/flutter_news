@@ -13,7 +13,9 @@
  - homepage
    - HomePage -> stateful widget
    - track the _HomePageState ( underscore to show that this interface should not be public )
-   - return the result of Scaffold() passing our appBar as a PerferredSizeWidget() passing my desired size 
+   - return the result of Scaffold() passing our appBar as a PerferredSize() passing my desired size as perferredSize:
+     - appBar should have a prop called child: that is a Column(), containing children: <widgets>
+     - the <widgets> need to be wrapped in a Container with the appBar and a title
 
 
 #### store the data
