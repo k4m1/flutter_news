@@ -1,11 +1,17 @@
 
 
 ### overview ( no particular order )
-- fetch the data
+- data
    - where will the data be fetched from
    - what will the format of the be ( json )
    - process the recived data
    - store the data
+ - app bar
+   - NewsApp -> stateless widget
+   - materialApp theming
+   - styling
+ - homepage
+   - 
 
 
 #### store the data
