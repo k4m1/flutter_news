@@ -53,10 +53,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   static List<News> _news = List<News>();
   static List<News> _newsInApp = List<News>();
-
 
   Future<List<News>> incomingNews() async {
     var url = 'http://www.mocky.io/v2/5ecfddf13200006600e3d6d0';
@@ -110,7 +108,20 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             ],
-          )),
+          )
+          ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return _listItem(index);
+        },
+        itemCount: _newsInApp.length,
+      ),
+    );
+  }
+
+  _listItem(index) {
+    return Container(
+      child: Column(children: <Widget>[]),
     );
   }
 }
