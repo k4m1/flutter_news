@@ -58,6 +58,14 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Container(
+                margin: EdgeInsets.only(top:25),
+                decoration: BoxDecoration(color:Colors.white,
+                border: Border(
+                  bottom: BorderSide(
+                    width:0.5, color: Colors.white,
+                  )
+                  )
+                  ),
                 child: AppBar(
                   title: Text(
                     'News',
