@@ -10,6 +10,7 @@
    - NewsApp -> stateless widget
    - materialApp theming
    - styling
+   - set DebugShowCheckedModeBanner to false
  - homepage
    - HomePage -> stateful widget
    - track the _HomePageState ( underscore to show that this interface should not be public )
