@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+
+
+
 
 void main() {
   runApp(MyApp());
@@ -15,9 +21,10 @@ class News {
   String image;
   String date;
 
-  News(this.id, this.url, this.publisher, this.author, this.title, this.text, this.image, this.date);
+  News(this.id, this.url, this.publisher, this.author, this.title, this.text,
+      this.image, this.date);
 
-  News.fromJson(Map<String, dynamic> json){
+  News.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     url = json['url'];
     publisher = json['publisher'];
@@ -58,14 +65,14 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top:25),
-                decoration: BoxDecoration(color:Colors.white,
-                border: Border(
-                  bottom: BorderSide(
-                    width:0.5, color: Colors.white,
-                  )
-                  )
-                  ),
+                margin: EdgeInsets.only(top: 25),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                        bottom: BorderSide(
+                      width: 0.5,
+                      color: Colors.white,
+                    ))),
                 child: AppBar(
                   title: Text(
                     'News',
