@@ -3,10 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
-
-
-
 void main() {
   runApp(MyApp());
 }
@@ -57,7 +53,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  static List<News> _news = List<News>();
+  static List<News> _newsInApp = List<News>();
+
+
+  Future<List<News>> incomingNews() async {
+    var url = 'http://www.mocky.io/v2/5ecfddf13200006600e3d6d0';
+    var responce = await http.get(url);
+    var news = List<News>();
+
+    if (responce.statusCode == 200) {
+      var notesJson = json.decode(responce.body);
+      for (var noteJson in notesJson) {
+        news.add(News.fromJson(noteJson));
+      }
+    }
+    return news;
+  }
+
   @override
+  void initState() {
+    incomingNews().then((value) {
+      setState(() {
+        _news.addAll(value);
+        _newsInApp = _news;
+      });
+    });
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
