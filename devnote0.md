@@ -25,3 +25,9 @@
       - need data format ( assuming json )
     - format the class according to the format of the fetched *news* data
     - parse and store the fetched json['id'], json['url'] ect.
+
+
+##### On Push
+- handle push event
+- direct to new page
+- display article information

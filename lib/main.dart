@@ -144,13 +144,46 @@ class _HomePageState extends State<HomePage> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: IconButton(
-                    iconSize: 16,
-                    color: Colors.black26,
-                    alignment: Alignment.bottomCenter,
-                    icon: Icon(Icons.arrow_forward_ios),
-                    onPressed: () => Navigator.push(
-                        context, MaterialPageRoute(builder: (context) {})),
-                  ),
+                      iconSize: 16,
+                      color: Colors.black26,
+                      alignment: Alignment.bottomCenter,
+                      icon: Icon(Icons.arrow_forward_ios),
+                      onPressed: () => Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return new MaterialApp(
+                                debugShowCheckedModeBanner: false,
+                                home: Scaffold(
+                                    appBar: AppBar(
+                                      centerTitle: true,
+                                      backgroundColor: Colors.white,
+                                      leading: IconButton(
+                                        iconSize: 20,
+                                        color: Colors.blue,
+                                        icon: Icon(Icons.arrow_back_ios),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                      title: Text(
+                                        _newsInApp[index].title,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    body: SingleChildScrollView(
+                                        child: Center(
+                                            child: Column(children: <Widget>[
+                                      Container(
+                                          height: 220,
+                                          width: 400,
+                                          margin: EdgeInsets.only(
+                                            bottom: 10,
+                                          ),
+                                          child: Image.network(
+                                              _newsInApp[index].image,
+                                              fit: BoxFit.cover)),
+                                    ])))));
+                          }))),
                 ),
               )
             ],
