@@ -154,6 +154,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             ],
+          ),
+          Text(
+            _newsInApp[index].publisher,
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              fontSize: 17,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 6.0, bottom: 0),
+            child: Divider(
+              color: Colors.black12,
+            ),
           )
         ],
       ),
