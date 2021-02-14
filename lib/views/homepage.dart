@@ -7,7 +7,6 @@ import 'package:flutter_news/models/category_model.dart';
 import 'package:flutter_news/views/article_view.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -80,11 +79,15 @@ class _HomePageState extends State<HomePage> {
               child: ListView.builder(
                 itemCount: articles.length,
                 shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
                 itemBuilder: (context, index){
                   return NewsTile(
                     imageUrl: articles[index].urlToImage,
                     title: articles[index].title,
-                    desc: articles[index].description);
+                    desc: articles[index].description,
+                    url: articles[index].url,
+                    
+                    );
                 }),
             ),
            ],
@@ -136,17 +139,37 @@ class CategoryTile extends StatelessWidget {
 
 class NewsTile extends StatelessWidget {
   final String imageUrl, title, desc;
-  NewsTile({@required this.imageUrl, @required this.title, @required this.desc})
+  NewsTile({@required this.imageUrl, @required this.title, @required this.desc, @required this.url})
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Image.network(imageUrl),
-          Text(title),
-          Text(desc),
-        ],),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => ArticleView(
+            imageUrl: url,
+          )
+          ))
+      },
+          child: Container(
+        margin: EdgeInsets.only(bottom: 16),
+        child: Column(
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: Image.network(imageUrl)),
+            SizedBox(height: 8,),
+            Text(title, style: TextStyle(
+              fontSize: 18,
+              color: Colors.black87,
+              fontWeight: FontWeight.w500
+            ),),
+            SizedBox(height: 8,),
+            Text(desc, style: TextStyle(
+              color: Colors.black54
+            ),),
+          ],),
+      ),
     );
   }
 }
