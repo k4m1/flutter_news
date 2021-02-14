@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_news/helper/news.dart';
 import 'package:flutter_news/models/article_model.dart';
 import 'package:flutter_news/views/article_view.dart';
 
 class CategoryNews extends StatefulWidget {
+
+  final String category;
+  CategoryNews({this.category});
+
   @override
   _CategoryNewsState createState() => _CategoryNewsState();
 }
 
 class _CategoryNewsState extends State<CategoryNews> {
-  List<ArticleModel> articles = new List<ArticleModel>();
-  bool loading = true;
-  final String category;
 
-  CategoryNews({this.category});
+  List<ArticleModel> articles = new List<ArticleModel>();
+  bool _loading = true;
 
   @override
   void initState() {
@@ -46,35 +49,41 @@ class _CategoryNewsState extends State<CategoryNews> {
         centerTitle: true,
         elevation: 0.0,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            //  *news tiles*
-            Container(
-              padding: EdgeInsets.only(top: 16),
-              child: ListView.builder(
-                  itemCount: articles.length,
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return NewsTile(
-                      imageUrl: articles[index].urlToImage,
-                      title: articles[index].title,
-                      desc: articles[index].description,
-                      url: articles[index].url,
-                    );
-                  }),
-            ),
-          ],
-        ),
+      body: _loading ? Center(
+         child: Container(
+           child: CircularProgressIndicator(),
+         ),
+       ) : SingleChildScrollView(
+                child: Container(
+          child: Column(
+            children: <Widget>[
+              //  *news tiles*
+              Container(
+                padding: EdgeInsets.only(top: 16),
+                child: ListView.builder(
+                    itemCount: articles.length,
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return NewsTile(
+                        imageUrl: articles[index].urlToImage,
+                        title: articles[index].title,
+                        desc: articles[index].description,
+                        url: articles[index].url,
+                      );
+                    }),
+              ),
+            ],
+          ),
       ),
+       ),
     );
   }
 }
 
 
 class NewsTile extends StatelessWidget {
-  final String imageUrl, title, desc;
+  final String imageUrl, title, desc, url;
   NewsTile({@required this.imageUrl, @required this.title, @required this.desc, @required this.url})
 
   @override
@@ -83,9 +92,9 @@ class NewsTile extends StatelessWidget {
       onTap: (){
         Navigator.push(context, MaterialPageRoute(
           builder: (context) => ArticleView(
-            imageUrl: url,
+            newsUrl: url,
           )
-          ))
+          ));
       },
           child: Container(
         margin: EdgeInsets.only(bottom: 16),
