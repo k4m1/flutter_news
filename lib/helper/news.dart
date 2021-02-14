@@ -1,7 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter_news/models/article_model.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 class News {
   List<ArticleModel> news = [];
@@ -12,7 +11,7 @@ class News {
 
     var responce = await http.get(url);
 
-    var jsonData = jsonDecode(responce);
+    var jsonData = jsonDecode(responce.body);
 
     if (jsonData['status'] == "ok") {
       jsonData['articles'].forEach((element) {
@@ -23,11 +22,10 @@ class News {
               description: element["description"],
               url: element["url"],
               urlToImage: element["urlToImage"],
-              publishedAt: element["publishedAt"],
               content: element["content"]);
 
           news.add(articleModel);
-          
+
         }
       });
     }

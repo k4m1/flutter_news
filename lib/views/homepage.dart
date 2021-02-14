@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/helper/data.dart';
+import 'package:flutter_news/helper/news.dart';
 import 'package:flutter_news/models/article_model.dart';
 import 'package:flutter_news/models/category_model.dart';
 import 'package:flutter_news/views/article_view.dart';
@@ -14,11 +15,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<CategoryModel> categories = new List<CategoryModel>();
   List<ArticleModel> articles = new List<ArticleModel>();
+    bool _loading = true;
   @override
   //implement init state TODO
   void initState() { 
     super.initState();
     categories = getCategories();
+    getNews();
   }
 
   getNews() async{
@@ -47,7 +50,7 @@ class _HomePageState extends State<HomePage> {
        ),
        body: _loading ? Center(
          child: Container(
-           CircularProgressIndicator(),
+           child: CircularProgressIndicator(),
          ),
        ) : Container(
          child: Column(
@@ -67,9 +70,20 @@ class _HomePageState extends State<HomePage> {
                      categoryName: categories[index].categoryName,
                    );
                    }),
-             )
+             ),
 
             //  *news tiles*
+            Container(
+              child: ListView.builder(
+                itemCount: articles.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index){
+                  return NewsTile(
+                    imageUrl: articles[index].urlToImage,
+                    title: articles[index].title,
+                    desc: articles[index].description);
+                }),
+            ),
            ],
          ),
        ),
