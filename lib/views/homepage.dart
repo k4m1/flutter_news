@@ -36,13 +36,17 @@ class _HomePageState extends State<HomePage> {
          child: Column(
            children: <Widget>[
              Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+               height: 70,
                child: ListView.builder(
                  itemCount: categories.length,
+                 scrollDirection: Axis.horizontal,
+                 shrinkWrap: true,
                  itemBuilder: (context, index){
                    return CategoryTile(
                      imageURL: categories[index].imageUrl,
                      categoryName: categories[index].categoryName,
-                   )
+                   );
                  },
                ),
              )
@@ -59,12 +63,48 @@ class CategoryTile extends StatelessWidget {
   CategoryTile({this.imageURL, this.categoryName})
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: (){
+
+      },
+      margin: EdgeInsets.only(right: 16),
       child: Stack(
         children: <Widget>[
-          Image.network(imageURL, width: 120, height: 60,),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.network(imageURL, width: 120, height: 60, fit: BoxFit.cover,)),
+          Container(
+            alignment: Alignment.center,
+            width: 120, height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+            color: Colors.black26,
+            ),
+            child: Text(categoryName, style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),),
+          )
         ],
       ),
+    );
+  }
+}
+
+class NewsTile extends StatelessWidget {
+  final String imageUrl, title, desc;
+  NewsTile({@required this.imageUrl, @required this.title, @required this.desc})
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Image.network(imageUrl),
+          Text(title),
+          Text(desc),
+        ],),
     );
   }
 }
