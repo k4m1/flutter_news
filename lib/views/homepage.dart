@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news/helper/data.dart';
+import 'package:flutter_news/models/article_model.dart';
 import 'package:flutter_news/models/category_model.dart';
+import 'package:flutter_news/views/article_view.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -11,12 +13,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<CategoryModel> categories = new List<CategoryModel>();
+  List<ArticleModel> articles = new List<ArticleModel>();
   @override
   //implement init state TODO
   void initState() { 
     super.initState();
     categories = getCategories();
   }
+
+  getNews() async{
+    News newsClass = News();
+    await newsClass.getNews();
+    articles = newsClass.news;
+    setState(() {
+      _loading = false;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
@@ -32,9 +45,15 @@ class _HomePageState extends State<HomePage> {
          centerTitle: true,
          elevation: 0.0,
        ),
-       body: Container(
+       body: _loading ? Center(
+         child: Container(
+           CircularProgressIndicator(),
+         ),
+       ) : Container(
          child: Column(
            children: <Widget>[
+
+             // *categories*
              Container(
             padding: EdgeInsets.symmetric(horizontal: 16),
                height: 70,
@@ -47,9 +66,10 @@ class _HomePageState extends State<HomePage> {
                      imageURL: categories[index].imageUrl,
                      categoryName: categories[index].categoryName,
                    );
-                 },
-               ),
+                   }),
              )
+
+            //  *news tiles*
            ],
          ),
        ),
