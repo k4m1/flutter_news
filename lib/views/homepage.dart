@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news/helper/data.dart';
 import 'package:flutter_news/helper/news.dart';
@@ -52,13 +53,14 @@ class _HomePageState extends State<HomePage> {
          child: Container(
            child: CircularProgressIndicator(),
          ),
-       ) : Container(
-         child: Column(
+       ) : SingleChildScrollView(
+         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
            children: <Widget>[
 
              // *categories*
              Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
                height: 70,
                child: ListView.builder(
                  itemCount: categories.length,
@@ -74,6 +76,7 @@ class _HomePageState extends State<HomePage> {
 
             //  *news tiles*
             Container(
+              padding: EdgeInsets.only(top: 16),
               child: ListView.builder(
                 itemCount: articles.length,
                 shrinkWrap: true,
@@ -87,26 +90,30 @@ class _HomePageState extends State<HomePage> {
            ],
          ),
        ),
+         )
     );
   }
 }
 
 class CategoryTile extends StatelessWidget {
 
-  final imageURL, categoryName;
-  CategoryTile({this.imageURL, this.categoryName})
+  final imageUrl, categoryName;
+  CategoryTile({this.imageUrl, this.categoryName})
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
 
       },
+      child: Container(
+
       margin: EdgeInsets.only(right: 16),
       child: Stack(
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
-            child: Image.network(imageURL, width: 120, height: 60, fit: BoxFit.cover,)),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl, width: 120, height: 60, fit: BoxFit.cover,)),
           Container(
             alignment: Alignment.center,
             width: 120, height: 60,
@@ -122,6 +129,7 @@ class CategoryTile extends StatelessWidget {
           )
         ],
       ),
+      )
     );
   }
 }
